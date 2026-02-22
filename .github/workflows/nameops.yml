@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: nameops-run
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
             coe-cache-
 
       - name: Install clearance engine
-        run: npm install -g @mcptoolshop/clearance-opinion-engine
+        run: npm install -g github:mcp-tool-shop-org/clearance-opinion-engine
 
       - name: Run NameOps pipeline
         run: node src/run.mjs --out artifacts --profile data/profile.json --names data/names.txt
