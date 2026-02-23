@@ -1,6 +1,6 @@
 {
   "name": "@mcptoolshop/nameops",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Name clearance orchestrator — batch runs, publish, and PR automation",
   "type": "module",
   "scripts": {
