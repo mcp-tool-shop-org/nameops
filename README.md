@@ -1,4 +1,6 @@
-# NameOps
+<p align="center">
+  <img src="assets/logo.png" alt="NameOps" width="360" />
+</p>
 
 Name clearance orchestrator for the [clearance-opinion-engine](https://github.com/mcp-tool-shop-org/clearance-opinion-engine).
 
