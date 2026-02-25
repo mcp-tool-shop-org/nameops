@@ -12,19 +12,19 @@
   <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
 </p>
 
-Name clearance orchestrator for the [clearance-opinion-engine](https://github.com/mcp-tool-shop-org/clearance-opinion-engine).
+[clearance-opinion-engine](https://github.com/mcp-tool-shop-org/clearance-opinion-engine) 用の名前チェックオーケストレーター。
 
-Turns a canonical name list into batch clearance runs, published artifacts, and human-readable PR summaries.
+標準的な名前リストを、一括でのチェック実行、公開された成果物、そして人間が読みやすいプルリクエスト（PR）のサマリーに変換します。
 
-## How it works
+## 動作原理
 
-1. `data/names.txt` holds the canonical list of names to check
-2. `data/profile.json` holds default COE CLI flags (channels, risk, concurrency, etc.)
-3. `src/run.mjs` orchestrates: COE batch, publish, validate
-4. `src/build-pr-body.mjs` generates a Markdown PR body with tier summaries, collision cards, and cost stats
-5. The marketing repo's scheduled workflow calls this logic and opens PRs with ingested artifacts
+1. `data/names.txt` には、チェック対象となる標準的な名前リストが格納されています。
+2. `data/profile.json` には、COE CLI のデフォルト設定（チャンネル、リスク、並列処理など）が格納されています。
+3. `src/run.mjs` が、COE の一括処理、成果物の公開、検証をオーケストレーションします。
+4. `src/build-pr-body.mjs` が、ティアごとのサマリー、衝突箇所のカード、およびコストに関する情報をまとめた Markdown 形式の PR の本文を生成します。
+5. マーケティングリポジトリのスケジュールされたワークフローがこのロジックを呼び出し、取り込まれた成果物とともに PR を作成します。
 
-## Usage
+## 使用方法
 
 ```bash
 # Install the clearance engine
@@ -37,16 +37,16 @@ node src/run.mjs --out artifacts --profile data/profile.json --names data/names.
 node src/build-pr-body.mjs artifacts
 ```
 
-## Configuration
+## 設定
 
 ### `data/names.txt`
 
-One name per line. Lines starting with `#` are comments. Max 500 names.
+1行に1つの名前を記述します。 `#` で始まる行はコメントです。 最大500個の名前までです。
 
 ### `data/profile.json`
 
-| Field | COE Flag | Default |
-|-------|----------|---------|
+| Field | COE フラグ | デフォルト |
+| ------- | ---------- | --------- |
 | `channels` | `--channels` | `all` |
 | `org` | `--org` | `mcp-tool-shop-org` |
 | `dockerNamespace` | `--dockerNamespace` | `mcptoolshop` |
@@ -54,13 +54,13 @@ One name per line. Lines starting with `#` are comments. Max 500 names.
 | `risk` | `--risk` | `conservative` |
 | `radar` | `--radar` | `true` |
 | `concurrency` | `--concurrency` | `3` |
-| `maxAgeHours` | `--max-age-hours` | `168` (7 days) |
+| `maxAgeHours` | `--max-age-hours` | `168` (7日間) |
 | `variantBudget` | `--variantBudget` | `12` |
 | `fuzzyQueryMode` | `--fuzzyQueryMode` | `registries` |
 | `cacheDir` | `--cache-dir` | `.coe-cache` |
-| `maxRuntimeMinutes` | workflow timeout | `15` |
+| `maxRuntimeMinutes` | ワークフローのタイムアウト | `15` |
 
-## Output
+## 出力
 
 ```
 artifacts/
@@ -76,16 +76,16 @@ artifacts/
       run.json
 ```
 
-## Architecture
+## アーキテクチャ
 
-NameOps is an orchestrator, not a service. It owns no data model and has no runtime dependencies beyond the COE CLI. The marketing repo owns the schedule (per CLAUDE.md rules); nameops owns the logic.
+NameOps は、サービスではなくオーケストレーターです。 NameOps は、COE CLI 以外の実行時依存関係を持たず、独自のデータモデルを所有していません。 スケジュールはマーケティングリポジトリが管理します（CLAUDE.md のルールに従う）。 NameOps は、そのロジックを所有します。
 
-## Tests
+## テスト
 
 ```bash
 npm test
 ```
 
-## License
+## ライセンス
 
 MIT

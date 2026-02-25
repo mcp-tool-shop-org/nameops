@@ -12,19 +12,19 @@
   <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
 </p>
 
-Name clearance orchestrator for the [clearance-opinion-engine](https://github.com/mcp-tool-shop-org/clearance-opinion-engine).
+Orquestador de verificación de nombres para el [motor de análisis de nombres](https://github.com/mcp-tool-shop-org/clearance-opinion-engine).
 
-Turns a canonical name list into batch clearance runs, published artifacts, and human-readable PR summaries.
+Convierte una lista de nombres canónicos en ejecuciones de verificación por lotes, artefactos publicados y resúmenes de solicitudes de extracción (PR) legibles por humanos.
 
-## How it works
+## Cómo funciona
 
-1. `data/names.txt` holds the canonical list of names to check
-2. `data/profile.json` holds default COE CLI flags (channels, risk, concurrency, etc.)
-3. `src/run.mjs` orchestrates: COE batch, publish, validate
-4. `src/build-pr-body.mjs` generates a Markdown PR body with tier summaries, collision cards, and cost stats
-5. The marketing repo's scheduled workflow calls this logic and opens PRs with ingested artifacts
+1. `data/names.txt` contiene la lista canónica de nombres a verificar.
+2. `data/profile.json` contiene las opciones predeterminadas de la interfaz de línea de comandos (CLI) del motor de análisis de nombres (canales, riesgo, concurrencia, etc.).
+3. `src/run.mjs` orquesta: verificación por lotes, publicación, validación.
+4. `src/build-pr-body.mjs` genera el cuerpo de una solicitud de extracción (PR) en formato Markdown, con resúmenes de niveles, tarjetas de colisiones y estadísticas de costos.
+5. El flujo de trabajo programado del repositorio de marketing llama a esta lógica y abre solicitudes de extracción con los artefactos incluidos.
 
-## Usage
+## Uso
 
 ```bash
 # Install the clearance engine
@@ -37,16 +37,16 @@ node src/run.mjs --out artifacts --profile data/profile.json --names data/names.
 node src/build-pr-body.mjs artifacts
 ```
 
-## Configuration
+## Configuración
 
 ### `data/names.txt`
 
-One name per line. Lines starting with `#` are comments. Max 500 names.
+Un nombre por línea. Las líneas que comienzan con `#` son comentarios. Máximo 500 nombres.
 
 ### `data/profile.json`
 
-| Field | COE Flag | Default |
-|-------|----------|---------|
+| Field | Opción del motor de análisis de nombres | Valor predeterminado |
+| ------- | ---------- | --------- |
 | `channels` | `--channels` | `all` |
 | `org` | `--org` | `mcp-tool-shop-org` |
 | `dockerNamespace` | `--dockerNamespace` | `mcptoolshop` |
@@ -54,13 +54,13 @@ One name per line. Lines starting with `#` are comments. Max 500 names.
 | `risk` | `--risk` | `conservative` |
 | `radar` | `--radar` | `true` |
 | `concurrency` | `--concurrency` | `3` |
-| `maxAgeHours` | `--max-age-hours` | `168` (7 days) |
+| `maxAgeHours` | `--max-age-hours` | `168` (7 días) |
 | `variantBudget` | `--variantBudget` | `12` |
 | `fuzzyQueryMode` | `--fuzzyQueryMode` | `registries` |
 | `cacheDir` | `--cache-dir` | `.coe-cache` |
-| `maxRuntimeMinutes` | workflow timeout | `15` |
+| `maxRuntimeMinutes` | tiempo de espera del flujo de trabajo | `15` |
 
-## Output
+## Salida
 
 ```
 artifacts/
@@ -76,16 +76,16 @@ artifacts/
       run.json
 ```
 
-## Architecture
+## Arquitectura
 
-NameOps is an orchestrator, not a service. It owns no data model and has no runtime dependencies beyond the COE CLI. The marketing repo owns the schedule (per CLAUDE.md rules); nameops owns the logic.
+NameOps es un orquestador, no un servicio. No posee ningún modelo de datos y no tiene dependencias de tiempo de ejecución más allá de la CLI del motor de análisis de nombres. El repositorio de marketing es responsable del programa (según las reglas de CLAUDE.md); NameOps es responsable de la lógica.
 
-## Tests
+## Pruebas
 
 ```bash
 npm test
 ```
 
-## License
+## Licencia
 
 MIT
