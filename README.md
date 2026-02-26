@@ -3,7 +3,9 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" alt="NameOps" width="400" />
+  
+            <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/nameops/readme.png"
+           alt="NameOps" width="400" />
 </p>
 
 <p align="center">
