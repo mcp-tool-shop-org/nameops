@@ -86,6 +86,31 @@ NameOps is an orchestrator, not a service. It owns no data model and has no runt
 npm test
 ```
 
+## Security & Data Scope
+
+| Aspect | Detail |
+|--------|--------|
+| **Data touched** | Name lists (`data/names.txt`). Profile config. Clearance result artifacts |
+| **Data NOT touched** | No telemetry. No analytics. No user data collected |
+| **Permissions** | Read: name lists, profile. Write: result artifacts, PR body output |
+| **Network** | Delegates to clearance-opinion-engine for external lookups |
+| **Telemetry** | None collected or sent |
+
+See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
+## Scorecard
+
+| Category | Score |
+|----------|-------|
+| A. Security | 10 |
+| B. Error Handling | 10 |
+| C. Operator Docs | 10 |
+| D. Shipping Hygiene | 10 |
+| E. Identity (soft) | 10 |
+| **Overall** | **50/50** |
+
+> Full audit: [SHIP_GATE.md](SHIP_GATE.md) · [SCORECARD.md](SCORECARD.md)
+
 ## License
 
 MIT
